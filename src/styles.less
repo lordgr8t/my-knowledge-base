@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@bg-color: #313036;
+@base-color: fade(#fff, 75%);
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('./assets/fonts/Manrope-Medium.ttf') format('ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('./assets/fonts/Manrope-SemiBold.ttf') format('ttf');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@base-font: 'Manrope', sans-serif;
+
+
+body {
+    background-color: @bg-color;
+    font-family: @base-font;
+}
+
+.base-text {
+    color: @base-color;
+    font-weight: 500;
+}
+
+.primary-text {
+    color: #fff;
+    font-weight: 600;
+}
