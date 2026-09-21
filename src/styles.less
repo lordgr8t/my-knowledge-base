@@ -1,33 +1,26 @@
-@bg-color: #313036;
-@base-color: fade(#fff, 75%);
-
-@font-face {
-  font-family: 'Manrope';
-  src: url('./assets/fonts/Manrope-Medium.ttf') format('ttf');
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Manrope';
-  src: url('./assets/fonts/Manrope-SemiBold.ttf') format('ttf');
-  font-weight: 600;
-  font-style: normal;
-}
-
-@base-font: 'Manrope', sans-serif;
-
+@import 'src/variables.less';
 
 body {
-    background-color: @bg-color;
-    font-family: @base-font;
+  padding: 0;
+  background-color: @bg-color;
+  font-family: @base-font;
+  margin: 0;
 }
 
 .base-text {
-    color: @base-color;
-    font-weight: 500;
+  color: @base-color;
+  font-weight: 500;
 }
 
 .primary-text {
-    color: #fff;
-    font-weight: 600;
+  color: @base-color;
+  font-weight: 600;
+}
+
+.d-flex{
+  display: flex;
+}
+.aic{
+  align-items: center;
+  height: 100%;
 }

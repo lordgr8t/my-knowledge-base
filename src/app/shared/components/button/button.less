@@ -1,0 +1,42 @@
+@import 'src/variables.less';
+
+.btn {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    transition: 200ms;
+    height: 32px;
+    font-family: @base-font;
+    font-weight: 500;
+    color: @base-color;
+}
+.btn:hover, .btn:active, .btn:focus{
+    cursor: pointer;
+    background-color: @active-color;
+    transition: 200ms;
+    color: @base-color-hover;
+}
+
+.btn-add, .btn-share, .btn-options, .btn-edit{
+    display: flex;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    align-items: center;
+}
+
+.btn-share-settings {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 15px;
+  background: @active-color;
+}
+.btn-share-settings:hover, .btn-share-settings:active, .btn-share-settings:focus{
+    background: @active-color-hover;
+    transition: 200ms;
+}
+
+.btn-share-settings img{
+    margin-right: 12px;
+}
