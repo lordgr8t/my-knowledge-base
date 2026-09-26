@@ -11,6 +11,7 @@ body {
   color: @base-color;
   font-weight: 500;
   cursor: default;
+  font-size: 14px;
 }
 
 .primary-text {
@@ -18,10 +19,34 @@ body {
   font-weight: 600;
 }
 
-.d-flex{
+.d-flex {
   display: flex;
 }
-.aic{
+
+.jcc {
+  justify-content: center;
+}
+
+.jcsb {
+  justify-content: space-between;
+}
+
+.aic {
   align-items: center;
   height: 100%;
+}
+
+a {
+  color: @base-color;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: 200ms;
+}
+
+a:hover,
+a:active,
+a:focus {
+  color: @base-color-hover;
+  transition: 200ms;
 }

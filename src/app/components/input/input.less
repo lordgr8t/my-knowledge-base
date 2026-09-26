@@ -1,0 +1,23 @@
+@import 'src/variables.less';
+
+.input-wrapper {
+    margin: 15px 0;
+}
+
+input {
+    height: 32px;
+    padding: 0 0 0 15px;
+    border: 1px @base-line-color solid;
+    border-radius: 9px;
+    background: transparent;
+    color: @base-color;
+    font-weight: 500;
+    cursor: default;
+    width: calc(100% - 16px);
+}
+
+input:active,
+input:hover,
+input:focus {
+    background: transparent;
+}

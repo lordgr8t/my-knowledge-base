@@ -1,0 +1,5 @@
+<div class="input-wrapper">
+    <div class="input-title base-text">{{title}}</div>
+    <input [type]="type" [placeholder]="placeholder" [value]="value" [disabled]="disabled"
+        (input)="handleInput($event)" (blur)="handleBlur()">
+</div>

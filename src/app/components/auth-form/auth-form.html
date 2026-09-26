@@ -1,0 +1,37 @@
+<div class="auth-wrapper">
+    <form #authForma = "ngForm" (ngSubmit)="auth(authForma)">
+        <div class="auth-header">
+            <img src="assets/icons/user-primetive.svg">
+            <div class="base-text">username</div>
+        </div>
+        <div class="auth-body">
+            <app-input title="Почта" placeholder="joedoe@mail.com" type="email" name="email" ngModel></app-input>
+            @if (nowAuthFormState == 'register') {
+            <app-input title="Имя пользователя" placeholder="придумайте имя пользователя" type="text" name="username" ngModel></app-input>
+            }
+            <app-input title="Пароль" placeholder="введите свой пароль" type="password" name="password" ngModel></app-input>
+            @if (nowAuthFormState == 'register') {
+            <app-input title="Пароль еще раз" placeholder="введите свой пароль еще раз" type="password"
+                name="passwordAgain" ngModel></app-input>
+            }
+            <app-button type="filled" position="center" formType="submit">
+                @if (nowAuthFormState == 'register') {
+                Зарегистрироваться
+                }@else{
+                Войти
+                }
+            </app-button>
+        </div>
+        <div [class]="'auth-footer ' + nowAuthFormState">
+            <a (click)=toggleAuthFormState()>@if (nowAuthFormState == 'register') {
+                Войти
+                }@else{
+                Зарегистрироваться
+                }
+            </a>
+            @if (nowAuthFormState == 'login'){
+            <a (click)=showNowState()>Восстановить пароль</a>
+            }
+        </div>
+    </form>
+</div>

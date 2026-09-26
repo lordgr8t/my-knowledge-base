@@ -1,0 +1,37 @@
+@import 'src/variables.less';
+
+.auth-wrapper {
+    border: 1px @base-line-color solid;
+    border-radius: 5px;
+    width: 365px;
+    position: absolute;
+    left: calc(50vw - 182px);
+    top: 15vh;
+}
+
+.auth-header {
+    display: flex;
+    height: 45px;
+    align-items: center;
+    border-bottom: 1px @base-line-color solid;
+    padding: 0 15px;
+}
+
+.auth-header img {
+    margin-right: 11px;
+}
+
+.auth-body {
+    padding: 0 40px;
+}
+
+.auth-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 15px 10px 15px;
+    font-size: 14px;
+}
+
+.auth-footer.register {
+    justify-content: center;
+}

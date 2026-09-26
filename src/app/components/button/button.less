@@ -26,17 +26,23 @@
     align-items: center;
 }
 
-.btn-share-settings {
+.btn-share-settings, .btn-filled {
   display: inline-flex;
   align-items: center;
   padding: 0 15px;
   background: @active-color;
 }
-.btn-share-settings:hover, .btn-share-settings:active, .btn-share-settings:focus{
+.btn-share-settings, .btn-share-settings:active, .btn-share-settings:focus,
+.btn-filled:hover, .btn-filled:active, .btn-filled:focus{
     background: @active-color-hover;
     transition: 200ms;
 }
 
 .btn-share-settings img{
     margin-right: 12px;
+}
+
+.btn-center{
+    display: flex;
+    justify-content: center;
 }

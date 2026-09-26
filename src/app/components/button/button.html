@@ -1,0 +1,24 @@
+<div [class]="'btn-' + position">
+    <button [class]="'btn btn-' + type" [disabled]="disabled" [type]="formType">
+
+        @switch (type) {
+        @case ('add') {
+        <img src="assets/icons/plus.svg">
+        }
+        @case ('share') {
+        <img src="assets/icons/share.svg">
+        }
+        @case ('share-settings') {
+        <img src="assets/icons/lock.svg">
+        }
+        @case ('options') {
+        <img src="assets/icons/options.svg">
+        }
+        @case ('edit') {
+        <img src="assets/icons/edit.svg">
+        }
+        }
+        <span><ng-content></ng-content></span>
+
+    </button>
+</div>
