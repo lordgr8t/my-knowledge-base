@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './core/services/auth';
 import { Header } from '@components/header/header';
+import { TuiRoot } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, FormsModule, Header],
+  imports: [RouterOutlet, CommonModule, FormsModule, Header, TuiRoot],
   templateUrl: './app.html',
   styleUrl: './app.less'
 })

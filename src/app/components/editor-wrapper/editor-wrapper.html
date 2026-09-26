@@ -1,1 +1,13 @@
-<p>editor-wrapper works!</p>
+<div class="editor-wrapper">
+    <tui-editor class="editor-transparent" [formControl]="control" [tools]="tools" appearance="no-border"
+        [readOnly]="editorStateSetting" [floatingToolbar]="editorStateSetting">
+        <p>фы</p>
+        <p>в</p>
+        <p>фы</p>
+        <p>вфывфыв</p>
+        <p>фывыфв</p>
+    </tui-editor>
+</div>
+
+
+<a (click)="toggleEditorState()">(click)="toggleEditorState()"</a>
