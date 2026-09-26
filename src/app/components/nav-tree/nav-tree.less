@@ -1,0 +1,62 @@
+@import 'src/variables.less';
+
+@icon-tree: '/assets/icons/tree-rectangle.svg';
+
+.nav-tree-wrapper {
+    width: 325px;
+    height: calc(100vh - 63px);
+    padding: 8px 20px;
+    border-bottom: 1px #424147 solid;
+    border-right: 1px #424147 solid;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #b0b0b0 transparent;
+}
+
+.tree-item {
+    color: @base-color;
+    font-weight: 500;
+    cursor: default;
+    font-size: 14px;
+    transition: 200ms;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    transition: 200ms;
+    margin-top: 10px;
+
+    >.tree-item {
+        flex: 0 0 calc(100% - 15px);
+        margin-left: 15px;
+        margin-top: 10px;
+    }
+
+    &::before {
+        content: "";
+        display: inline-block;
+
+        width: 6px;
+        height: 6px;
+
+        // Отступ между картинкой и текстом "Root"
+        margin-right: 10px;
+
+        // Подключаем картинку через интерполяцию переменной LESS
+        background-image: url('@{icon-tree}');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    &.active,
+    &:hover {
+        color: @base-color-hover;
+        cursor: pointer;
+        transition: 200ms;
+    }
+
+    &:first-child {
+        margin-top: 0;
+    }
+}

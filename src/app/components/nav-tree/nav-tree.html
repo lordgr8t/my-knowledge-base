@@ -1,1 +1,5 @@
-<p>nav-tree works!</p>
+<div class="nav-tree-wrapper">
+    @for (item of treeArticles(); track item.article.id) {
+    <div class="tree-item" [style.margin-left.px]="item.depth * 15">{{item.article.title}}</div>
+    }
+</div>

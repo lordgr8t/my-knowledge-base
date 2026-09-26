@@ -1,8 +1,8 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { AuthResponse, LoginRequest, RegisterRequest, User } from '../models/auth.model';
+import { environment } from '@environments/environment';
+import { AuthResponse, LoginRequest, RegisterRequest, User } from '@core/models/auth.model';
 
 
 @Injectable({
