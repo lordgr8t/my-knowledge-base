@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { InputComponent } from '@components/input/input';
 import { Button } from '@components/button/button';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -16,6 +17,8 @@ export type AuthFormState = 'login' | 'register';
 
 
 export class AuthForm {
+
+
   nowAuthFormState: AuthFormState = 'login';
 
   toggleAuthFormState(): void {
@@ -24,11 +27,10 @@ export class AuthForm {
     console.log(this.nowAuthFormState)
   }
 
-  showNowState() {
-    console.log(this.nowAuthFormState);
-  }
+
 
   private authService = inject(AuthService);
+  private router = inject(Router);
   protected FormSubmited = false;
 
 
@@ -43,15 +45,31 @@ export class AuthForm {
         email: form.value.email,
         password: form.value.password,
       }).subscribe({
-        next: (res) => console.log('LOGIN OK:', res),
+        next: (res) => {
+          console.log('LOGIN OK:', res);
+          this.router.navigateByUrl('/home');
+        },
         error: (err) => alert(err.error.detail),
       });
 
     } else {
-      console.log(form.value.email);
-      console.log(form.value.password);
+
+      this.authService.register({
+        username: form.value.username,
+        password: form.value.password,
+        email: form.value.email
+      }).subscribe({
+        next: (res) => {
+          console.log('LOGIN OK:', res);
+          this.router.navigateByUrl('/home');
+        },
+        error: (err) => alert(err.error.detail)
+      })
+
       console.log(form.value.passwordAgain);
-      console.log(form.value.username);
     }
   }
+
+
+  
 }

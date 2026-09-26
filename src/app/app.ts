@@ -18,16 +18,16 @@ export class App {
 
   private authService = inject(AuthService);
 
-  ngOnInit() {
-    // Тест логина
-    this.authService.login({
-      email: 'test@test.com',
-      password: '123456',
-    }).subscribe({
-      next: (res) => console.log('LOGIN OK:', res),
-      error: (err) => console.error('LOGIN ERR:', err),
-    });
+  // ngOnInit() {
+  //   // Тест логина
+  //   this.authService.login({
+  //     email: 'test@test.com',
+  //     password: '123456',
+  //   }).subscribe({
+  //     next: (res) => console.log('LOGIN OK:', res),
+  //     error: (err) => console.error('LOGIN ERR:', err),
+  //   });
 
-    // console.log(this.authService.getCurrentUser()); //debug 
-  }
+  //   console.log(this.authService.getCurrentUser());
+  // }
 }

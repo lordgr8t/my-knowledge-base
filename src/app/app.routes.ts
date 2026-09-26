@@ -4,6 +4,13 @@ import { Auth } from './layout/auth/auth';
 
 export const routes: Routes = [
     {
+        path: 'home',
+        component: Home,
+        data: {
+            headerState: 'home'
+        }
+    },
+    {
         path: '',
         component: Home,
         data: {

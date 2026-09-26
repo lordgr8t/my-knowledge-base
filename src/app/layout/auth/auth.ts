@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthForm } from '@components/auth-form/auth-form';
+import { AuthService } from '@core/services/auth';
+
 
 
 @Component({
@@ -8,4 +11,13 @@ import { AuthForm } from '@components/auth-form/auth-form';
   templateUrl: './auth.html',
   styleUrl: './auth.less',
 })
-export class Auth {}
+export class Auth {
+
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  ngOnInit() {
+    if (this.authService.getAccessToken()) {
+      this.router.navigateByUrl('/home');
+    }
+  }
+}
