@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Output, EventEmitter} from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, startWith, switchMap } from 'rxjs';
 import { of } from 'rxjs';
 import { Button } from '../button/button';
+
 
 export type HeaderState = 'auth' | 'home';
 
@@ -29,4 +30,5 @@ export class Header {
     ),
     { initialValue: 'auth' }
   );
+
 }

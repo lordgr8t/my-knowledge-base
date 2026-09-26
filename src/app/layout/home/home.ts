@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { NavTree } from '@components/nav-tree/nav-tree';
 import { NavFooter } from '@components/nav-footer/nav-footer';
 import { EditorWrapper } from '@components/editor-wrapper/editor-wrapper';
+
 
 
 import { Router } from '@angular/router';
