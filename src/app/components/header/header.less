@@ -30,6 +30,47 @@ header{
     margin: 0 9px 0 25px;
 }
 
+.options-menu-anchor {
+    position: relative;
+}
+
+.options-menu {
+    position: absolute;
+    z-index: 10;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 170px;
+    padding: 4px;
+    border: 1px solid @base-line-color;
+    border-radius: 6px;
+    background: @bg-color;
+    box-shadow: 0 8px 20px fade(#000, 28%);
+}
+
+.delete-article-action {
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: #ef6b6b;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover:not(:disabled),
+    &:focus-visible:not(:disabled) {
+        outline: none;
+        background: fade(#ef4444, 14%);
+        color: #ff8585;
+    }
+
+    &:disabled {
+        color: fade(#ef6b6b, 45%);
+        cursor: not-allowed;
+    }
+}
+
 // для auth layout
 .header--auth .nav-header{
     width: 100%;

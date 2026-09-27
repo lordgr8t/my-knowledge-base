@@ -1,5 +1,5 @@
 <div [class]="'btn-' + position">
-    <button [class]="'btn btn-' + type" [disabled]="disabled" [type]="formType">
+    <button [class]="'btn btn-' + type" [disabled]="disabled" [type]="formType" [attr.aria-label]="ariaLabel">
 
         @switch (type) {
         @case ('add') {

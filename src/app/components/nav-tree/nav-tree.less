@@ -26,27 +26,76 @@
     transition: 200ms;
     margin-top: 10px;
 
+    .tree-item-title {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .tree-add-button {
+        flex: 0 0 32px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 150ms ease;
+    }
+
+    &:hover .tree-add-button,
+    &:focus-within .tree-add-button {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
     >.tree-item {
         flex: 0 0 calc(100% - 15px);
         margin-left: 15px;
         margin-top: 10px;
     }
 
-    &::before {
-        content: "";
-        display: inline-block;
+    .tree-toggle,
+    .tree-leaf-marker {
+        flex: 0 0 16px;
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+    }
 
-        width: 6px;
-        height: 6px;
+    .tree-toggle {
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
 
-        // Отступ между картинкой и текстом "Root"
-        margin-right: 10px;
+        &::before {
+            content: "";
+            display: block;
+            width: 6px;
+            height: 6px;
+            background-image: url('@{icon-tree}');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: transform 150ms ease;
+        }
 
-        // Подключаем картинку через интерполяцию переменной LESS
-        background-image: url('@{icon-tree}');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
+        &.collapsed::before {
+            transform: rotate(-90deg);
+        }
+    }
+
+    .tree-leaf-marker {
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: fade(@base-color, 55%);
+        }
     }
 
     &.active,

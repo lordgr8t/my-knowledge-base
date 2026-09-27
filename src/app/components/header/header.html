@@ -8,18 +8,36 @@
             }
         </p>
         @if (headerState === 'home') {
-        <app-button type="add"></app-button>
+        <app-button type="add" ariaLabel="Создать статью" (click)="createArticle.emit()"></app-button>
         }
     </div>
     @if (headerState === 'home') {
     <div class="editor-header">
         <div class="d-flex aic">
-            <div class="breadcrumbs primary-text">Root / directory-name / page-name</div>
-            <app-button type="share"></app-button>
+            <div class="breadcrumbs primary-text">
+                <span>Root</span>
+                @for (breadcrumb of breadcrumbs; track $index) {
+                <span class="breadcrumb-separator"> / </span>
+                <span [title]="breadcrumb">{{formatBreadcrumb(breadcrumb)}}</span>
+                }
+            </div>
+            <!-- <app-button type="share"></app-button> -->
         </div>
         <div class="d-flex aic">
             <app-button type="share-settings">Поделиться</app-button>
-            <app-button type="options" class="btn-options-header-class"></app-button>
+            <div class="options-menu-anchor btn-options-header-class">
+                <app-button type="options" class="btn-options-header-class"
+                    ariaLabel="Открыть меню статьи" [attr.aria-expanded]="isOptionsMenuOpen"
+                    (click)="toggleOptionsMenu($event)"></app-button>
+                @if (isOptionsMenuOpen) {
+                <div class="options-menu" role="menu" aria-label="Действия со статьёй" (click)="$event.stopPropagation()">
+                    <button class="delete-article-action" type="button" role="menuitem"
+                        [disabled]="!hasSelectedArticle" (click)="requestDeleteArticle()">
+                        Удалить статью
+                    </button>
+                </div>
+                }
+            </div>
             <app-button (click)="toggleEditorMode()" [type]="isEditing ? 'filled' : 'edit'">
                 @if (isEditing) {
                 Сохранить

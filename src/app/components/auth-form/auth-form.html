@@ -1,29 +1,62 @@
 <div class="auth-wrapper">
-    <form #authForma = "ngForm" (ngSubmit)="auth(authForma)">
+    <form #authForm="ngForm" [class.register-state]="nowAuthFormState === 'register'" (ngSubmit)="auth(authForm)" novalidate>
         <div class="auth-header">
-            <img src="assets/icons/user-primetive.svg">
-            <div class="base-text">username</div>
+            <img src="assets/icons/user-primetive.svg" alt="">
+            <div class="base-text">{{nowAuthFormState === 'register' ? 'Создание аккаунта' : 'Добро пожаловать'}}</div>
         </div>
         <div class="auth-body">
-            <app-input title="Почта" placeholder="joedoe@mail.com" type="email" name="email" ngModel></app-input>
-            @if (nowAuthFormState == 'register') {
-            <app-input title="Имя пользователя" placeholder="придумайте имя пользователя" type="text" name="username" ngModel></app-input>
+            <app-input title="Почта" placeholder="joedoe@mail.com" type="email" name="email" ngModel required email
+                #emailModel="ngModel" [invalid]="!!(emailModel.invalid && (emailModel.touched || isSubmitted))"></app-input>
+            @if (emailModel.invalid && (emailModel.touched || isSubmitted)) {
+            <div class="field-error" role="alert">
+                @if (emailModel.errors?.['required']) { Укажите почту. }
+                @else if (emailModel.errors?.['email']) { Введите корректный адрес почты. }
+            </div>
             }
-            <app-input title="Пароль" placeholder="введите свой пароль" type="password" name="password" ngModel></app-input>
-            @if (nowAuthFormState == 'register') {
+            @if (nowAuthFormState === 'register') {
+            <app-input title="Имя пользователя" placeholder="придумайте имя пользователя" type="text" name="username"
+                ngModel required minlength="3" maxlength="30" #usernameModel="ngModel"
+                [invalid]="!!(usernameModel.invalid && (usernameModel.touched || isSubmitted))"></app-input>
+            @if (usernameModel.invalid && (usernameModel.touched || isSubmitted)) {
+            <div class="field-error" role="alert">
+                @if (usernameModel.errors?.['required']) { Укажите имя пользователя. }
+                @else { Имя должно содержать от 3 до 30 символов. }
+            </div>
+            }
+            }
+            <app-input title="Пароль" placeholder="введите свой пароль" type="password" name="password" ngModel required
+                [minlength]="nowAuthFormState === 'register' ? 8 : 1" #passwordModel="ngModel"
+                [invalid]="!!(passwordModel.invalid && (passwordModel.touched || isSubmitted))"></app-input>
+            @if (passwordModel.invalid && (passwordModel.touched || isSubmitted)) {
+            <div class="field-error" role="alert">
+                @if (passwordModel.errors?.['required']) { Введите пароль. }
+                @else { Пароль должен содержать не менее 8 символов. }
+            </div>
+            }
+            @if (nowAuthFormState === 'register') {
             <app-input title="Пароль еще раз" placeholder="введите свой пароль еще раз" type="password"
-                name="passwordAgain" ngModel></app-input>
+                name="passwordAgain" ngModel required #passwordAgainModel="ngModel"
+                [invalid]="!!((passwordAgainModel.invalid || isPasswordMismatch(authForm)) && (passwordAgainModel.touched || isSubmitted))"></app-input>
+            @if (passwordAgainModel.invalid && (passwordAgainModel.touched || isSubmitted)) {
+            <div class="field-error" role="alert">Повторите пароль.</div>
+            } @else if (isPasswordMismatch(authForm) && (passwordAgainModel.touched || isSubmitted)) {
+            <div class="field-error" role="alert">Пароли не совпадают.</div>
             }
-            <app-button type="filled" position="center" formType="submit">
+            }
+            @if (formError()) {
+            <div class="form-error" role="alert">{{formError()}}</div>
+            }
+            <app-button type="filled" position="center" [disabled]="isSubmitting()"
+                [formType]="'submit'">
                 @if (nowAuthFormState == 'register') {
-                Зарегистрироваться
+                {{isSubmitting() ? 'Создаём аккаунт...' : 'Зарегистрироваться'}}
                 }@else{
-                Войти
+                {{isSubmitting() ? 'Входим...' : 'Войти'}}
                 }
             </app-button>
         </div>
         <div [class]="'auth-footer ' + nowAuthFormState">
-            <a (click)=toggleAuthFormState()>@if (nowAuthFormState == 'register') {
+            <a role="button" tabindex="0" (click)="toggleAuthFormState(authForm)" (keydown.enter)="toggleAuthFormState(authForm)">@if (nowAuthFormState == 'register') {
                 Войти
                 }@else{
                 Зарегистрироваться

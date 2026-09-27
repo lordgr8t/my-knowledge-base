@@ -18,6 +18,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() title: string | null = null;
   @Input() placeholder: string | null = null;
   @Input() type: InputType = 'text';
+  @Input() invalid = false;
 
   value = '';
   disabled = false;

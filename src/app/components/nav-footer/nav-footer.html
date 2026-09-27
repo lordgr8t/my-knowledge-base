@@ -1,3 +1,17 @@
-<p>nav-footer works!</p>
-
-<a (click)="logOut()">logOut</a>
+<footer>
+    <div class="d-flex">
+        <img src="assets/icons/user-primetive.svg" alt="">
+        <div class="base-text">{{username()}}</div>
+    </div>
+    <div class="settings-menu-anchor">
+        <button class="settings-button" type="button" aria-label="Настройки"
+            [attr.aria-expanded]="isSettingsMenuOpen()" (click)="toggleSettingsMenu($event)">
+            <img src="assets/icons/settings.svg" alt="">
+        </button>
+        @if (isSettingsMenuOpen()) {
+        <div class="settings-menu" role="menu" aria-label="Настройки аккаунта" (click)="$event.stopPropagation()">
+            <button class="logout-action" type="button" role="menuitem" (click)="logOut()">Выйти</button>
+        </div>
+        }
+    </div>
+</footer>

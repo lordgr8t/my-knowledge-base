@@ -15,4 +15,5 @@ export class Button {
   @Input() disabled = false;
   @Input() position:ButtonPosition = 'default';
   @Input() formType:ButtonFormType = null;
+  @Input() ariaLabel: string | null = null;
 }

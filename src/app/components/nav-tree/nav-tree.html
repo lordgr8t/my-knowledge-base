@@ -1,5 +1,17 @@
 <div class="nav-tree-wrapper">
     @for (item of treeArticles(); track item.article.id) {
-    <div class="tree-item" [class.active]="item.article.id === activeArticleId" (click)="articleSelected.emit(item.article.id)" [style.margin-left.px]="item.depth * 15">{{item.article.title}}</div>
+    <div class="tree-item" [class.active]="item.article.id === activeArticleId" (click)="selectArticle(item.article.id)" [style.margin-left.px]="item.depth * 15">
+        @if (item.hasChildren) {
+        <button class="tree-toggle" type="button" [class.collapsed]="collapsedArticleIds().has(item.article.id)"
+            [attr.aria-expanded]="!collapsedArticleIds().has(item.article.id)"
+            [attr.aria-label]="(collapsedArticleIds().has(item.article.id) ? 'Развернуть ' : 'Свернуть ') + item.article.title"
+            (click)="toggleBranch($event, item.article.id)"></button>
+        } @else {
+        <span class="tree-leaf-marker" aria-hidden="true"></span>
+        }
+        <span class="tree-item-title" [title]="item.article.title">{{formatTitle(item.article.title)}}</span>
+        <app-button class="tree-add-button" type="add" ariaLabel="Добавить вложенную статью"
+            (click)="requestChildArticle($event, item.article.id)"></app-button>
+    </div>
     }
 </div>

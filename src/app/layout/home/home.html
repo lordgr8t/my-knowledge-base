@@ -1,6 +1,10 @@
-<app-header headerState="home" (toggleEditor)="toggleEditorState()">space-name</app-header>
+<app-header headerState="home" [isEditing]="editorState === 'write'" [breadcrumbs]="breadcrumbs()"
+    [hasSelectedArticle]="selectedArticle() !== null" (toggleEditor)="toggleEditorState()"
+    (createArticle)="createArticle(null)" (deleteArticle)="deleteSelectedArticle()">space-name</app-header>
 <div class="d-flex">
-    <app-nav-tree [activeArticleId]="selectedArticleId()" (articleSelected)="selectArticle($event)"></app-nav-tree>
+    <app-nav-tree [activeArticleId]="selectedArticleId()" [articleUpdate]="treeArticleUpdate()" [deletedArticleId]="deletedArticleId()"
+        (articleSelected)="selectArticle($event)" (breadcrumbsChanged)="breadcrumbs.set($event)"
+        (createChildArticle)="createArticle($event.parentId, $event.breadcrumbs)"></app-nav-tree>
 
     <main class="article-content" [attr.aria-busy]="isLoadingArticle()">
         @if (isLoadingArticle()) {
@@ -9,7 +13,7 @@
             <span>Загрузка статьи...</span>
         </div>
         } @else if (selectedArticle()) {
-        <app-editor-wrapper [state]="editorState" [article]="selectedArticle()" (contentChange)="updateDraft($event)"></app-editor-wrapper>
+        <app-editor-wrapper [state]="editorState" [article]="selectedArticle()" (contentChange)="updateDraft($event)" (titleChange)="updateTitle($event)"></app-editor-wrapper>
         } @else if (articleLoadError()) {
         <div class="article-status" role="alert">{{ articleLoadError() }}</div>
         } @else {

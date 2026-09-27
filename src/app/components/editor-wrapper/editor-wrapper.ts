@@ -40,11 +40,15 @@ export class EditorWrapper implements OnChanges, OnInit {
   @Input() article: Article | null = null;
   @Input() stateBool = false;
   @Output() contentChange = new EventEmitter<string>();
+  @Output() titleChange = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.control.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((content) => this.contentChange.emit(content));
+      .subscribe((content) => {
+        this.contentChange.emit(content);
+        this.titleChange.emit(this.getFirstLine(content));
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -52,8 +56,34 @@ export class EditorWrapper implements OnChanges, OnInit {
       this.stateBool = this.state === 'read';
     }
     if (changes['article']) {
-      this.control.setValue(this.article?.content ?? '');
+      const content = this.buildEditorContent(this.article);
+      this.control.setValue(content, { emitEvent: false });
+      this.contentChange.emit(content);
+      this.titleChange.emit(this.article?.title ?? '');
     }
+  }
+
+  private buildEditorContent(article: Article | null): string {
+    if (!article) return '';
+
+    const template = document.createElement('template');
+    template.innerHTML = article.content;
+    const firstBlock = template.content.firstElementChild;
+    if ((firstBlock?.tagName === 'H1' || firstBlock?.tagName === 'H2')
+      && firstBlock.textContent?.trim() === article.title.trim()) {
+      return template.innerHTML;
+    }
+
+    const heading = document.createElement('h1');
+    heading.textContent = article.title;
+    template.content.prepend(heading);
+    return template.innerHTML;
+  }
+
+  private getFirstLine(content: string): string {
+    const template = document.createElement('template');
+    template.innerHTML = content;
+    return template.content.firstElementChild?.textContent?.trim() ?? '';
   }
 
 }

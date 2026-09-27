@@ -7,6 +7,8 @@
     position: absolute;
     left: calc(50vw - 182px);
     top: 15vh;
+    animation: auth-card-enter 420ms cubic-bezier(.2, .75, .25, 1) both;
+    transition: height 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
 }
 
 .auth-header {
@@ -23,6 +25,38 @@
 
 .auth-body {
     padding: 0 40px;
+    animation: auth-fields-enter 260ms ease both;
+}
+
+.auth-body app-input {
+    display: block;
+    animation: auth-field-enter 260ms ease both;
+}
+
+.auth-body app-input:nth-of-type(2) {
+    animation-delay: 35ms;
+}
+
+.auth-body app-input:nth-of-type(3) {
+    animation-delay: 70ms;
+}
+
+.auth-body app-input:nth-of-type(4) {
+    animation-delay: 105ms;
+}
+
+.field-error,
+.form-error {
+    margin-top: -10px;
+    color: #ef8589;
+    font-size: 12px;
+    line-height: 1.4;
+    animation: auth-error-enter 160ms ease both;
+}
+
+.form-error {
+    margin: 10px 0;
+    color: #ff9b9f;
 }
 
 .auth-footer {
@@ -34,4 +68,51 @@
 
 .auth-footer.register {
     justify-content: center;
+}
+
+.auth-footer a {
+    cursor: pointer;
+    transition: color 160ms ease, opacity 160ms ease;
+
+    &:hover,
+    &:focus-visible {
+        color: @base-color-hover;
+    }
+}
+
+@keyframes auth-card-enter {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(.985);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes auth-fields-enter {
+    from { opacity: .75; }
+    to { opacity: 1; }
+}
+
+@keyframes auth-field-enter {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes auth-error-enter {
+    from { opacity: 0; transform: translateY(-3px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .auth-wrapper,
+    .auth-body,
+    .auth-body app-input,
+    .field-error,
+    .form-error {
+        animation-duration: 1ms;
+        transition-duration: 1ms;
+    }
 }
