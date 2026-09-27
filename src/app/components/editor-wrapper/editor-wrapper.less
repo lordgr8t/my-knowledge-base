@@ -1,8 +1,9 @@
 :host .editor-transparent {
     background-color: transparent !important;
-    height: calc(100vh - 46px);
     min-height: 0;
-    overflow-y: auto;
+    height: auto;
+    max-height: none;
+    overflow: visible;
 }
 
 [tuiAppearance][data-appearance='no-border'] {
@@ -11,4 +12,8 @@
 
 .editor-wrapper {
     width: calc(100vw - 366px);
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #b0b0b0 transparent;
 }

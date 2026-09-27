@@ -53,3 +53,13 @@ a:focus {
   color: @base-color-hover;
   transition: 200ms;
 }
+
+tui-editor.editor-transparent tui-scroll-controls {
+  display: none !important;
+}
+
+tui-editor.editor-transparent {
+  min-block-size: 0 !important;
+  max-block-size: none !important;
+  overflow: visible !important;
+}
