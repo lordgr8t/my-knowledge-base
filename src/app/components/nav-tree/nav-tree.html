@@ -1,5 +1,5 @@
 <div class="nav-tree-wrapper">
     @for (item of treeArticles(); track item.article.id) {
-    <div class="tree-item" [style.margin-left.px]="item.depth * 15">{{item.article.title}}</div>
+    <div class="tree-item" [class.active]="item.article.id === activeArticleId" (click)="articleSelected.emit(item.article.id)" [style.margin-left.px]="item.depth * 15">{{item.article.title}}</div>
     }
 </div>

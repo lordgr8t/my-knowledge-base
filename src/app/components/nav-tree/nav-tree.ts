@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { ArticleService } from '@core/services/article';
 import { Article } from '@core/models/article.model';
 
@@ -17,6 +17,8 @@ interface TreeArticle {
 export class NavTree {
 
   private articleService = inject(ArticleService);
+
+  @Input() activeArticleId: number | null = null;
 
   articles = signal<Article[]>([]);
   treeArticles = computed(() => {
@@ -60,4 +62,6 @@ export class NavTree {
       error: (error) => alert(error),
     });
   }
+
+  @Output() articleSelected = new EventEmitter<Article["id"]>();
 }

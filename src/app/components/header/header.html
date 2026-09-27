@@ -1,17 +1,17 @@
-<header [class]="'header--' + headerState()">
+<header [class]="'header--' + headerState">
     <div class="nav-header">
         <p class="base-text">
-            @if (headerState() === 'auth') {
+            @if (headerState === 'auth') {
             my-knowledge-base
             }@else {
             <ng-content></ng-content>
             }
         </p>
-        @if (headerState() === 'home') {
+        @if (headerState === 'home') {
         <app-button type="add"></app-button>
         }
     </div>
-    @if (headerState() === 'home') {
+    @if (headerState === 'home') {
     <div class="editor-header">
         <div class="d-flex aic">
             <div class="breadcrumbs primary-text">Root / directory-name / page-name</div>
@@ -20,7 +20,11 @@
         <div class="d-flex aic">
             <app-button type="share-settings">Поделиться</app-button>
             <app-button type="options" class="btn-options-header-class"></app-button>
-            <!-- <app-button (click)="toggleEditorState()" type="edit"></app-button> -->
+            <app-button (click)="toggleEditorMode()" [type]="isEditing ? 'filled' : 'edit'">
+                @if (isEditing) {
+                Сохранить
+                }
+            </app-button>
         </div>
     </div>
     }

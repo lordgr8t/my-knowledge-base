@@ -1,0 +1,31 @@
+@import 'src/variables.less';
+
+.article-content {
+	flex: 1;
+	min-width: 0;
+	display: grid;
+	place-items: center;
+}
+
+.article-status {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	color: @base-color;
+	font-size: 14px;
+}
+
+.loading-spinner {
+	width: 20px;
+	height: 20px;
+	border: 2px solid fade(@base-color, 25%);
+	border-top-color: @base-color-hover;
+	border-radius: 50%;
+	animation: article-loading 700ms linear infinite;
+}
+
+@keyframes article-loading {
+	to {
+		transform: rotate(360deg);
+	}
+}

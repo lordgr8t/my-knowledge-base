@@ -1,15 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { provideTuiEditor, TUI_EDITOR_DEFAULT_TOOLS, TuiEditor } from '@taiga-ui/editor';
-
-// @Component({
-//   selector: 'app-editor-wrapper',
-//   imports: [TuiEditor, ReactiveFormsModule],
-//   templateUrl: './editor-wrapper.html',
-//   styleUrl: './editor-wrapper.less',
-// })
-// export class EditorWrapper {}
-
+import { Article } from '@core/models/article.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type EditorState = "read" | "write";
 
@@ -25,8 +18,6 @@ export type EditorState = "read" | "write";
   styleUrl: './editor-wrapper.less',
   providers: [
     provideTuiEditor({
-      // You can disable these plugins
-      // if you don't need them
       image: true,
       iframe: true,
       video: true,
@@ -39,19 +30,30 @@ export type EditorState = "read" | "write";
   ]
 })
 
-export class EditorWrapper {
-  readonly tools = TUI_EDITOR_DEFAULT_TOOLS;
-  readonly control = new FormControl();
+export class EditorWrapper implements OnChanges, OnInit {
+  private readonly destroyRef = inject(DestroyRef);
 
-  editorState: EditorState = "read";
-  
-  get editorStateSetting(): boolean {
-    return this.editorState === 'read';
+  readonly tools = TUI_EDITOR_DEFAULT_TOOLS;
+  readonly control = new FormControl('', { nonNullable: true });
+
+  @Input({ required: true }) state!: EditorState;
+  @Input() article: Article | null = null;
+  @Input() stateBool = false;
+  @Output() contentChange = new EventEmitter<string>();
+
+  ngOnInit(): void {
+    this.control.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((content) => this.contentChange.emit(content));
   }
-  
-  toggleEditorState(){
-    this.editorState =
-      this.editorState === 'read' ? 'write' : 'read';
-    console.log(this.editorState)
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['state']) {
+      this.stateBool = this.state === 'read';
+    }
+    if (changes['article']) {
+      this.control.setValue(this.article?.content ?? '');
+    }
   }
+
 }

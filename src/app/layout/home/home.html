@@ -1,6 +1,20 @@
-
+<app-header headerState="home" (toggleEditor)="toggleEditorState()">space-name</app-header>
 <div class="d-flex">
-    <app-nav-tree></app-nav-tree>
-    <app-editor-wrapper></app-editor-wrapper>
+    <app-nav-tree [activeArticleId]="selectedArticleId()" (articleSelected)="selectArticle($event)"></app-nav-tree>
+
+    <main class="article-content" [attr.aria-busy]="isLoadingArticle()">
+        @if (isLoadingArticle()) {
+        <div class="article-status" role="status">
+            <span class="loading-spinner" aria-hidden="true"></span>
+            <span>Загрузка статьи...</span>
+        </div>
+        } @else if (selectedArticle()) {
+        <app-editor-wrapper [state]="editorState" [article]="selectedArticle()" (contentChange)="updateDraft($event)"></app-editor-wrapper>
+        } @else if (articleLoadError()) {
+        <div class="article-status" role="alert">{{ articleLoadError() }}</div>
+        } @else {
+        <div class="article-status">Выберите статью</div>
+        }
+    </main>
 </div>
-<!-- <app-nav-footer></app-nav-footer> -->
+<app-nav-footer></app-nav-footer>
